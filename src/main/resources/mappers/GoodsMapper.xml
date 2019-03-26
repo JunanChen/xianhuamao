@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+                   http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xianhuamao.mapper.GoodsMapper">
+
+    <select id="find16Goods" resultType="Goods">
+
+        select
+            *
+        from
+            goods
+        order by
+            goods_id
+        desc
+        limit
+            16
+
+    </select>
+
+    <select id="findByGoods_id" parameterType="Integer" resultType="Goods">
+
+        select
+            *
+        from
+            goods
+        where
+            goods_id = #{value}
+        limit
+            1
+
+    </select>
+    
+    <select id="findGoodsCategoryByGoods_id" parameterType="Integer" resultType="HashMap">
+
+        select
+            goods.*,category.category_name
+        from
+            goods,category
+        where
+            goods.goods_category_id = category.category_id
+        and
+            goods_id = #{value}
+        limit
+            1
+
+    </select>
+
+    <select id="findAll" resultType="Goods">
+
+        select
+            *
+        from
+            goods
+        order by
+            goods_id
+        desc
+
+    </select>
+
+    <update id="updateLike" parameterType="Integer">
+
+        update
+            goods
+        set
+            goods_like = goods_like + 1
+        where
+            goods_id = #{value}
+
+    </update>
+
+</mapper>

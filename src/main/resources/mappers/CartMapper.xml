@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+                   http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xianhuamao.mapper.CartMapper">
+
+
+    <insert id="insert" parameterType="Cart">
+
+        insert into
+            cart
+            (cart_goods_id,cart_member_id,cart_goods_count,cart_add_time)
+        values
+            (#{cart_goods_id},#{cart_member_id},#{cart_goods_count},#{cart_add_time})
+
+    </insert>
+
+    <update id="update" parameterType="Integer" >
+
+        update
+            cart
+        set
+            cart_goods_count = cart_goods_count + 1
+        where
+            cart_id = ${value}
+        limit
+            1
+
+    </update>
+
+    <select id="findByGoodsIdMemberId" parameterType="Integer" resultType="Cart">
+
+        select
+            *
+        from
+            cart
+        where
+            cart_goods_id = #{cart_goods_id}
+        and
+            cart_member_id = #{cart_member_id}
+        and
+            cart_order_status = 0
+        limit
+            1
+
+    </select>
+
+    <select id="findAllByMemberId" parameterType="Integer" resultType="HashMap">
+
+        select
+            cart.*,goods.*
+        from
+            cart,goods
+        where
+            cart_member_id = #{value}
+        and
+            cart_order_status = 0
+        and
+            cart_status = 0
+        and
+            cart.cart_goods_id = goods.goods_id
+
+    </select>
+
+    <update id="updateCount" parameterType="Integer" >
+
+        update
+            cart
+        set
+            cart_goods_count = #{cart_goods_count}
+        where
+            cart_id = #{cart_id}
+        limit
+            1
+
+    </update>
+
+    <update id="delete" parameterType="Integer">
+
+        update
+            cart
+        set
+            cart_status = 1
+        where
+            cart_id = #{value}
+
+    </update>
+
+    <update id="updateAboutOrder" parameterType="Cart">
+
+        update
+            cart
+        set
+            cart_order_code = #{cart_order_code},
+            cart_order_status = #{cart_order_status}
+        where
+            cart_member_id = #{cart_member_id}
+
+    </update>
+
+
+</mapper>

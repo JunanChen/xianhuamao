@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+                   http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xianhuamao.mapper.MemberMapper">
+
+    <select id="findByNikName" parameterType="String" resultType="Member">
+
+        select
+            *
+        from
+            member
+        where
+            member_nikname = #{value}
+        limit
+            1
+
+    </select>
+
+    <insert id="insert" parameterType="Member" >
+
+        insert into
+            member
+            (member_nikname,member_pwd,member_email,member_name,member_phone,member_reg_time,member_city)
+        values
+            (#{member_nikname},#{member_pwd},#{member_email},#{member_name},#{member_phone},#{member_reg_time},#{member_city})
+
+    </insert>
+
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
+                   http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xianhuamao.mapper.OrderMapper">
+
+    <insert id="add" parameterType="Order">
+
+        insert into
+            `order`
+            (order_code,order_total_price,order_add_time,order_member_id)
+        values
+            (#{order_code},#{order_total_price},#{order_add_time},#{order_member_id})
+
+    </insert>
+
+    <select id="findByOrder_code" parameterType="String" resultType="Order">
+
+        select
+            *
+        from
+            `order`
+        where
+            order_code = #{value}
+
+    </select>
+
+    <update id="update" parameterType="Order" >
+
+        update
+            `order`
+        set
+            order_email = #{order_email},
+            order_tel = #{order_tel},
+            order_address = #{order_address},
+            order_user_name = #{order_user_name},
+            order_pay_status = #{order_pay_status}
+        where
+            order_code = #{order_code}
+
+    </update>
+
+</mapper>

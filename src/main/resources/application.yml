@@ -1,0 +1,55 @@
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      enabled: true
+
+  freemarker:
+    cache: true
+
+
+server:
+  port: 8443
+  ssl:
+    key-store: /media/chenjunan/D/Idea-workspace/xianhuamao/src/main/resources/server.keystore
+    key-alias: jetty
+    key-store-type: jks
+    key-store-password: chenjunan
+    enabled: true
+
+
+http:
+  port: 8080
+
+
+#公共配置与ｐｒｏｆｉｌｅｓ无关:
+mybatis:
+  type-aliases-package: com.xianhuamao.pojo
+  mapper-locations: classpath:mappers/*.xml
+
+---
+
+spring:
+
+  profiles: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xianhuamao?useUnicode=true&characterEncoding=utf8&useAffectedRows=true
+    username: root
+    password: chenjunan
+    type: com.alibaba.druid.pool.DruidDataSource
+  freemarker:
+    request-context-attribute: request
+
+  mail:
+    username: 13699044479@163.com
+    password: chenjunan1998
+    host: smtp.163.com
+    port: 25
+    form: 13699044479@163.com
