@@ -4,11 +4,9 @@ package com.xianhuamao.controller;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.xianhuamao.config.AlipayConfig;
 import com.xianhuamao.pojo.Cart;
+import com.xianhuamao.pojo.Category;
 import com.xianhuamao.pojo.Order;
-import com.xianhuamao.service.AliPayService;
-import com.xianhuamao.service.CartService;
-import com.xianhuamao.service.MailService;
-import com.xianhuamao.service.OrderService;
+import com.xianhuamao.service.*;
 import com.xianhuamao.utils.GetParamsFromAliPayUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,20 +46,21 @@ public class OrderController {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/orderInfo",method = RequestMethod.GET)
     public ModelAndView orderInfo(HttpServletRequest request){
 
         HashMap<String,Object> map = new HashMap<>();
-
         String order_code = request.getParameter("order_code");
         Order orderById = orderService.getOrderByOrder_code(order_code);
-
         List<Cart> list = cartService.getListByMemberId((Integer) request.getSession().getAttribute("member_id"));
-
         map.put("carts",list);
         map.put("order",orderById);
-
+        //获取类别
+        List<Category> categories = categoryService.listCategory();
+        map.put("categories", categories);
         return new ModelAndView("orderInfo",map);
     }
 
@@ -118,7 +117,9 @@ public class OrderController {
 
         //返回的数据
         HashMap map = new HashMap();
-
+        //获取类别
+        List<Category> categories = categoryService.listCategory();
+        map.put("categories", categories);
         if(signVerified) {
             //商户订单号
             String out_trade_no = request.getParameter("out_trade_no");
@@ -137,11 +138,12 @@ public class OrderController {
                 if(order != null) {
                     //发送邮件
                     String member_nikname = (String) request.getSession().getAttribute("member_nikname");
-                    mailService.sendSimpleEmail(order.getOrder_email(),"闲话猫","尊敬的"+member_nikname+"会员，恭喜您成功在闲话猫网站购买到知识，订单号为："+out_trade_no+"  支付宝交易号："+trade_no+"  欢迎下次光临！ (＝^ω^＝)");
+                    mailService.sendSimpleEmail(order.getOrder_email(),"闲话猫","尊敬的"+member_nikname+"会员，恭喜您成功在闲话猫网站购买到书籍，订单号为："+out_trade_no+"  支付宝交易号："+trade_no+"，感谢您对闲话猫的支持， 欢迎下次光临！ (＝^ω^＝)");
 
                     order.setOrder_pay_status(1);
                     Integer temp = orderService.updateOrder(order);
                     if(temp > 0){
+
                         request.getSession().removeAttribute("order");
                         return new ModelAndView("paySuccessful",map);
                     }

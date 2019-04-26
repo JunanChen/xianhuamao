@@ -50,7 +50,20 @@
     <header>
         <!--头部登录，搜索黑框框-->
         <div class="header-top gray-bg">
-            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5 hidden-xs">
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="header-top-right">
+                            <span class="mr-20"><a href="javascript:search();" id="btn_search"><img alt="" src="${base}images/header/search-icon.png"></a></span>
+                            <span><input type="text" class="pl-10" id="search" placeholder="Search..."></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="header-bottom">
             <div class="container">
@@ -65,7 +78,13 @@
                         <!--菜单-->
                         <ul class="header-top-style text-uppercase">
                             <li><a href="/index">首页</a></li>
-                            <li><a href="/shop">商店</a></li>
+                            <li><a href="/shop">商店</a>
+                                <div class="ul-style1 login-register1 box-shadow1">
+                                    <#list categories as category>
+                                        <a href="/shop/${category.category_id}"><button value="submit" class="btn-default">${category.category_name}</button></a>
+                                    </#list>
+                                </div>
+                            </li>
                             <li><a href="/loginRegister">登录</a></li>
                             <li><a href="/loginRegister">注册</a></li>
                             <li><a href="/cart">购物车</a></li>

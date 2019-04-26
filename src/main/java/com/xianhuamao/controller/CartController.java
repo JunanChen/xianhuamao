@@ -2,18 +2,16 @@ package com.xianhuamao.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.sun.org.apache.regexp.internal.RE;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import com.xianhuamao.dto.BaseDto;
 import com.xianhuamao.pojo.Cart;
+import com.xianhuamao.pojo.Category;
 import com.xianhuamao.pojo.Order;
 import com.xianhuamao.service.CartService;
+import com.xianhuamao.service.CategoryService;
 import com.xianhuamao.service.OrderService;
 import com.xianhuamao.utils.TimeUtil;
 import com.xianhuamao.utils.UUIDUtil;
 import org.apache.ibatis.annotations.Param;
-import org.eclipse.jetty.util.log.LoggerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author janhs
@@ -45,25 +41,25 @@ public class CartController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private CategoryService categoryService;
+
 
     @RequestMapping("/cart")
     public ModelAndView cart(HttpServletRequest request){
-
         Integer member_id = (Integer) request.getSession().getAttribute("member_id");
         //获取购物车的数据
         List<Cart> list = cartService.getListByMemberId(member_id);
-
         HashMap<String,Object> map = new HashMap<>();
         map.put("carts",list);
-
         //查看用户是否登录
         String member_nikname = (String)request.getSession().getAttribute("member_nikname");
-
         if(member_nikname != null && !member_nikname.isEmpty()){
-
             map.put("member_nikname",member_nikname);
         }
-
+        //获取类别
+        List<Category> categories = categoryService.listCategory();
+        map.put("categories", categories);
         return new ModelAndView("cart",map);
     }
 

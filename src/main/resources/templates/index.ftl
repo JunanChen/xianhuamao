@@ -44,7 +44,20 @@
         <header>
             <!--头部登录，搜索黑框框-->
             <div class="header-top gray-bg">
-                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-5 hidden-xs">
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="header-top-right">
+                                <span class="mr-20"><a href="javascript:search();" id="btn_search"><img alt="" src="${base}images/header/search-icon.png"></a></span>
+                                <span><input type="text" class="pl-10" id="search" placeholder="Search..."></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="header-bottom">
                 <div class="container">
@@ -59,14 +72,20 @@
                             <!--菜单-->
                             <ul class="header-top-style text-uppercase">
                                 <li><a href="/index">首页</a></li>
-                                <li><a href="/shop">商店</a></li>
+                                <li><a href="/shop">商店</a>
+                                    <div class="ul-style1 login-register1 box-shadow1">
+                                        <#list categories as category>
+                                            <a href="/shop/${category.category_id}"><button value="submit" class="btn-default">${category.category_name}</button></a>
+                                        </#list>
+                                    </div>
+                                </li>
                                 <li><a href="/contact">留言</a></li>
                                 <#if member_nikname?? && member_nikname != "" >
                                     <li>
                                         <a href="javascript:;">欢迎您，会员&nbsp;&nbsp;${member_nikname+"      "?substring(0,6)}...
-                                            <div class="ul-style login-register box-shadow white-bg p-30">
-                                                <button  value="submit" class="btn-default">账号管理</button>
-                                                <button  value="submit" class="btn-default">退出</button>
+                                            <div class="ul-style1 login-register1 box-shadow1">
+                                                <a href="#"><button  value="submit" class="btn-default">账号管理</button></a>
+                                                <a href="#"><button  value="submit" class="btn-default">退出</button></a>
                                             </div>
                                         </a>
                                     </li>
@@ -88,7 +107,16 @@
                                 <nav id="dropdown">
                                     <ul>
                                         <li><a href="/index">首页</a></li>
-                                        <li><a href="/shop">商店</a></li>
+                                        <li><a href="商店.html">商店
+                                                <div class="ul-style1 login-register1 box-shadow1 white-bg p-30">
+                                                    <button  value="submit" class="btn-default">公共课</button>
+                                                    <button  value="submit" class="btn-default">工学类</button>
+                                                    <button  value="submit" class="btn-default">理学类</button>
+                                                    <button  value="submit" class="btn-default">计算机类</button>
+                                                    <button  value="submit" class="btn-default">经济管理</button>
+                                                </div>
+                                            </a>
+                                        </li>
                                         <li><a href="/contact">留言</a></li>
                                         <#if member_nikname?? && member_nikname != "" >
                                             <li><a href="javascript:;">欢迎您，会员&nbsp;&nbsp;${member_nikname+"      "?substring(0,6)}...</a></li>
@@ -290,8 +318,8 @@
                                                 </#list>
                                             </ul>
                                             <ul class="pricing list-inline pull-right">
-                                                <li class="text-right c-price">$170</li>
-                                                <li class="text-right p-price">$190</li>
+                                                <li class="text-right c-price">${g.goods1.goods_price-20}</li>
+                                                <li class="text-right p-price">${g.goods1.goods_price}</li>
                                             </ul>
                                             <div class="clear"></div>
                                             <h6 class="product-name">
@@ -318,8 +346,8 @@
                                                 </#list>
                                             </ul>
                                             <ul class="pricing list-inline pull-right">
-                                                <li class="text-right c-price">$160</li>
-                                                <li class="text-right p-price">$180</li>
+                                                <li class="text-right c-price">${g.goods2.goods_price-20}</li>
+                                                <li class="text-right p-price">${g.goods2.goods_price}</li>
                                             </ul>
                                             <div class="clear"></div>
                                             <h6 class="product-name">

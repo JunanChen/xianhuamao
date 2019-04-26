@@ -1,7 +1,9 @@
 package com.xianhuamao.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xianhuamao.pojo.Category;
 import com.xianhuamao.pojo.Goods;
+import com.xianhuamao.service.CategoryService;
 import com.xianhuamao.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +28,17 @@ public class HomeController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping({"/","/index"})
     public ModelAndView home(HttpServletRequest request){
 
         Map<String,Object> map = new HashMap<>();
 
+        //获取类别
+        List<Category> categories = categoryService.listCategory();
+        map.put("categories", categories);
         //获取首页面显示的书本
         List<Goods> goods = goodsService.find16Goods();
 

@@ -4,9 +4,7 @@
 
 
 <mapper namespace="com.xianhuamao.mapper.GoodsMapper">
-
     <select id="find16Goods" resultType="Goods">
-
         select
             *
         from
@@ -16,11 +14,9 @@
         desc
         limit
             16
-
     </select>
 
     <select id="findByGoods_id" parameterType="Integer" resultType="Goods">
-
         select
             *
         from
@@ -29,11 +25,9 @@
             goods_id = #{value}
         limit
             1
-
     </select>
     
     <select id="findGoodsCategoryByGoods_id" parameterType="Integer" resultType="HashMap">
-
         select
             goods.*,category.category_name
         from
@@ -44,11 +38,9 @@
             goods_id = #{value}
         limit
             1
-
     </select>
 
     <select id="findAll" resultType="Goods">
-
         select
             *
         from
@@ -56,18 +48,37 @@
         order by
             goods_id
         desc
-
     </select>
 
     <update id="updateLike" parameterType="Integer">
-
         update
             goods
         set
             goods_like = goods_like + 1
         where
             goods_id = #{value}
-
     </update>
+
+    <select id="selectByCategory" parameterType="Integer" resultType="Goods">
+        select
+            *
+        from
+            goods
+        where
+            goods_category_id = #{categoryId}
+    </select>
+
+    <select id="selectByLikeNameOrAnthor" parameterType="String" resultType="Goods">
+        select
+            *
+        from
+            goods
+        where
+            1 = 1
+        <if test="search != null and search != ''">
+            and
+            concat(goods_name, goods_author) like CONCAT('%',#{search},'%')
+        </if>
+    </select>
 
 </mapper>

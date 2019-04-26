@@ -472,6 +472,11 @@ $('#contact_submit').click(function () {
 
 });
 
+/*搜索*/
+function search() {
+    var search = $('#search').val();
+    window.location.href = "/shop/search/" + search;
+}
 
 
 

@@ -2390,6 +2390,30 @@ p.form-row input {
   /*height: 120px;*/
 /*}*/
 
+/*处理导航栏的分类*/
+/*.box-shadow1{*/
+/*height: 270px;*/
+/*}*/
+.ul-style1 {
+  opacity: 0;
+  position: absolute;
+  transform: scaleY(0.4);
+  transform-origin: center top 0;
+  transition: all 0.3s linear 0s;
+  /*visibility: hidden;*/
+  z-index: 1;
+}
+.login-register1 {
+  left: 50%;
+  margin-left: -40px;
+  width: 140px;
+}
+.header-top-style li:hover .ul-style1 {
+  opacity: 1;
+  transform: scaleY(1);
+  visibility: visible;
+  z-index: 99;
+}
 
 
 

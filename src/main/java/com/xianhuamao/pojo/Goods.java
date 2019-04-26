@@ -4,7 +4,7 @@ public class Goods {
     /**
      * 商品的id
      */
-    private int goods_id;
+    private Integer goods_id;
     /**
      * 商品名称
      */
@@ -36,11 +36,11 @@ public class Goods {
     /**
      * 书籍的分类id
      */
-    private int goods_category_id;
+    private Integer goods_category_id;
     /**
      * 书籍的库存
      */
-    private int goods_count;
+    private Integer goods_count;
     /**
      * 商品缩略图
      */
@@ -48,7 +48,7 @@ public class Goods {
     /**
      * 书籍是否推荐:1推荐,0不推荐
      */
-    private int goods_recommend;
+    private Integer goods_recommend;
 
     /*
      * 书籍的星星数
@@ -92,11 +92,11 @@ public class Goods {
         this.category = category;
     }
 
-    public int getGoods_id() {
+    public Integer getGoods_id() {
         return goods_id;
     }
 
-    public void setGoods_id(int goods_id) {
+    public void setGoods_id(Integer goods_id) {
         this.goods_id = goods_id;
     }
 
@@ -156,19 +156,19 @@ public class Goods {
         this.goods_words = goods_words;
     }
 
-    public int getGoods_category_id() {
+    public Integer getGoods_category_id() {
         return goods_category_id;
     }
 
-    public void setGoods_category_id(int goods_category_id) {
+    public void setGoods_category_id(Integer goods_category_id) {
         this.goods_category_id = goods_category_id;
     }
 
-    public int getGoods_count() {
+    public Integer getGoods_count() {
         return goods_count;
     }
 
-    public void setGoods_count(int goods_count) {
+    public void setGoods_count(Integer goods_count) {
         this.goods_count = goods_count;
     }
 
@@ -180,11 +180,11 @@ public class Goods {
         this.goods_img = goods_img;
     }
 
-    public int getGoods_recommend() {
+    public Integer getGoods_recommend() {
         return goods_recommend;
     }
 
-    public void setGoods_recommend(int goods_recommend) {
+    public void setGoods_recommend(Integer goods_recommend) {
         this.goods_recommend = goods_recommend;
     }
 

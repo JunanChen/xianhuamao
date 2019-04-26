@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "
                    http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-
 <mapper namespace="com.xianhuamao.mapper.CategoryMapper">
 
+    <select id="selectAll" resultType="Category">
+        select
+            category.category_id, category.category_name
+        from
+            category
+    </select>
 
-
+    <select id="findById" parameterType="Integer" resultType="Category">
+        select
+            *
+        from
+            category
+        where
+            category_id = #{categoryId}
+    </select>
 
 </mapper>

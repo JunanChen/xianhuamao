@@ -10,19 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="${base}/images/favicon.png">
 
     <!-- All css files are included here -->
     <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css">
     <!-- This core.css file contents all plugings css file. -->
-    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="${base}/css/core.css">
     <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="${base}/css/shortcode/shortcodes.css">
     <!-- Theme main style -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${base}/css/style.css">
     <!-- Responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="${base}/css/responsive.css">
     <!-- User style -->
     <#--<link rel="stylesheet" href="css/custom.css">-->
     <!--layui-->
@@ -30,7 +30,7 @@
 
 
     <!-- Modernizr JS -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="${base}/js/vendor/modernizr-2.8.3.min.js"></script>
     <style>
         .brand-area{
             margin-top: 30px;
@@ -49,14 +49,27 @@
         <header>
             <!--头部登录，搜索黑框框-->
             <div class="header-top gray-bg">
-                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-5 hidden-xs">
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                        </div>
+                        <div class="col-sm-4 col-xs-6">
+                            <div class="header-top-right">
+                                <span class="mr-20"><a href="javascript:search();" id="btn_search"><img alt="" src="${base}/images/header/search-icon.png"></a></span>
+                                <span><input type="text" class="pl-10" id="search" placeholder="Search..."></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="header-bottom">
                 <div class="container">
                     <div class="row header-middle-content">
                         <div class="col-md-2 col-sm-4 col-xs-12">
                             <div class="header-logo text-center">
-                                <a href="/"><img alt="" src="images/new/logo.png"></a>
+                                <a href="/"><img alt="" src="${base}/images/new/logo.png"></a>
                             </div>
                         </div>
                         <!--购物车-->
@@ -64,14 +77,20 @@
                             <!--菜单-->
                             <ul class="header-top-style text-uppercase">
                                 <li><a href="/index">首页</a></li>
-                                <li><a href="/shop">商店</a></li>
+                                <li><a href="/shop">商店</a>
+                                    <div class="ul-style1 login-register1 box-shadow1">
+                                        <#list categories as category>
+                                            <a href="/shop/${category.category_id}"><button value="submit" class="btn-default">${category.category_name}</button></a>
+                                        </#list>
+                                    </div>
+                                </li>
                                 <li><a href="/contact">留言</a></li>
                                 <#if member_nikname?? && member_nikname != "" >
                                     <li>
                                         <a href="javascript:;">欢迎您，会员&nbsp;&nbsp;${member_nikname+"      "?substring(0,6)}...
-                                            <div class="ul-style login-register box-shadow white-bg p-30">
-                                                <button  value="submit" class="btn-default">账号管理</button>
-                                                <button  value="submit" class="btn-default">退出</button>
+                                            <div class="ul-style1 login-register1 box-shadow1">
+                                                <a href="#"><button  value="submit" class="btn-default">账号管理</button></a>
+                                                <a href="#"><button  value="submit" class="btn-default">退出</button></a>
                                             </div>
                                         </a>
                                     </li>
@@ -126,11 +145,25 @@
                     <div class="col-lg-12">
                         <div class="breadcrumbs-inner">
                             <h5 class="breadcrumbs-disc m-0">Best Products for you</h5>
-                            <h2 class="breadcrumbs-title text-black m-0">挑选你心仪的图书吧</h2>
+                            <#if search ??>
+                                <h2 class="breadcrumbs-title text-black m-0">搜索到关于 ‘${search}’ 如下数据：</h2>
+                            <#else >
+                                <h2 class="breadcrumbs-title text-black m-0">挑选你心仪的图书吧</h2>
+                            </#if>
                             <ul class="top-page">
                                 <li><a href="/index">首页</a></li>
                                 <li>></li>
                                 <li>商店</li>
+                                <#if categoryName ??>
+                                    <li>></li>
+                                    <li>${categoryName}</li>
+                                </#if>
+                                <#if search ?? >
+                                    <li>></li>
+                                    <li>搜索</li>
+                                    <li>></li>
+                                    <li>${search}</li>
+                                </#if>
                             </ul>
                         </div>
                     </div>
@@ -158,7 +191,7 @@
                                         <div class="product-inner cp-style-2 mt-30 col-2">
                                             <a href="/bookinfo?goods_id=${goods.goods_id}">
                                                 <div class="product-img b-img">
-                                                    <img alt="${goods.goods_name}" src="images/new/${goods.goods_img}">
+                                                    <img alt="${goods.goods_name}" src="${base}/images/new/${goods.goods_img}">
                                                 </div>
                                             </a>
                                             <span class="product-tag text-uppercase black-bg">new</span>
@@ -188,194 +221,6 @@
                                     </#list>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade modify2" id="menu1">
-                                <div class="product-container-list product-container-list-full rp-style-2">
-                                    <div class="cp-style-2 mt-30">
-                                        <div class="product-inner-list clearfix">
-                                            <div class="product-img-list">
-                                                <a href="#">
-                                                    <div class="product-img b-img">
-                                                        <img alt="" src="images/product/arrival/1.jpg">
-                                                    </div>
-                                                </a>
-                                                <span class="product-tag text-uppercase black-bg">new</span>
-                                            </div>
-                                            <div class="product-text product-text-list gray-ash-bg">
-                                                        <h5 class="product-name-list">
-                                                            <a title="Montria jastma" href="#"><strong>Montria jastma</strong></a>
-                                                        </h5>
-                                                        <ul class="pull-left list-inline ratings rating-list pb-20">
-                                                            <li><i class="rated fa fa-star"></i></li>
-                                                            <li><i class="rated fa fa-star"></i></li>
-                                                            <li><i class="rated fa fa-star"></i></li>
-                                                            <li><i class="rated fa fa-star"></i></li>
-                                                            <li><i class="rated fa fa-star"></i></li>
-                                                            <li class="reviews text-theme"><span>10</span>Review(s)</li>
-                                                        </ul>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat pariatur</p>
-                                                        <ul class="pricing pricing-list">
-                                                            <li class="text-right p-price text-center">$180</li>
-                                                            <li class="text-right c-price text-defualt text-center">$150</li>
-                                                        </ul>
-                                                        <div class="clear"></div>
-                                                        <ul class="quick-veiw-list">
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cp-style-2 mt-30">
-                                        <div class="product-inner-list clearfix">
-                                            <div class="product-img-list">
-                                                <a href="#">
-                                                    <div class="product-img b-img">
-                                                        <img alt="" src="images/product/arrival/2.jpg">
-                                                    </div>
-                                                </a>
-                                                <span class="product-tag text-uppercase theme-bg">sale</span>
-                                            </div>
-                                            <div class="product-text product-text-list gray-ash-bg">
-                                                <h5 class="product-name-list">
-                                                    <a title="Zelletria ostma" href="#"><strong>Zelletria ostma</strong></a>
-                                                </h5>
-                                                <ul class="pull-left list-inline ratings rating-list pb-20">
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li class="reviews text-theme"><span>10</span>Review(s)</li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat pariatur</p>
-                                                <ul class="pricing pricing-list">
-                                                    <li class="text-right p-price text-center">$220</li>
-                                                    <li class="text-right c-price text-defualt text-center">$195</li>
-                                                </ul>
-                                                <div class="clear"></div>
-                                                <ul class="quick-veiw-list">
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cp-style-2 mt-30">
-                                        <div class="product-inner-list clearfix">
-                                            <div class="product-img-list">
-                                                <a href="#">
-                                                    <div class="product-img b-img">
-                                                        <img alt="" src="images/product/arrival/3.jpg">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="product-text product-text-list gray-ash-bg">
-                                                <h5 class="product-name-list">
-                                                    <a title="Letria postma" href="#"><strong>Letria postma</strong></a>
-                                                </h5>
-                                                <ul class="pull-left list-inline ratings rating-list pb-20">
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li class="reviews text-theme"><span>10</span>Review(s)</li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat pariatur</p>
-                                                <ul class="pricing pricing-list">
-                                                    <li class="text-right p-price text-center">$160</li>
-                                                    <li class="text-right c-price text-defualt text-center">$140</li>
-                                                </ul>
-                                                <div class="clear"></div>
-                                                <ul class="quick-veiw-list">
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cp-style-2 mt-30">
-                                        <div class="product-inner-list clearfix">
-                                            <div class="product-img-list">
-                                                <a href="#">
-                                                    <div class="product-img b-img">
-                                                        <img alt="" src="images/product/arrival/4.jpg">
-                                                    </div>
-                                                </a>
-                                                <span class="product-tag text-uppercase orang-bg">-20%</span>
-                                            </div>
-                                            <div class="product-text product-text-list gray-ash-bg">
-                                                <h5 class="product-name-list">
-                                                    <a title="Montria jastma" href="#"><strong>Montria jastma</strong></a>
-                                                </h5>
-                                                <ul class="pull-left list-inline ratings rating-list pb-20">
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li class="reviews text-theme"><span>10</span>Review(s)</li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat pariatur</p>
-                                                <ul class="pricing pricing-list">
-                                                    <li class="text-right p-price text-center">$160</li>
-                                                    <li class="text-right c-price text-defualt text-center">$140</li>
-                                                </ul>
-                                                <div class="clear"></div>
-                                                <ul class="quick-veiw-list">
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cp-style-2 mt-30">
-                                        <div class="product-inner-list clearfix">
-                                            <div class="product-img-list">
-                                                <a href="#">
-                                                    <div class="product-img b-img">
-                                                        <img alt="" src="images/product/arrival/5.jpg">
-                                                    </div>
-                                                </a>
-                                                <span class="product-tag text-uppercase black-bg">new</span>
-                                            </div>
-                                            <div class="product-text product-text-list gray-ash-bg">
-                                                <h5 class="product-name-list">
-                                                    <a title="Metria ostma" href="#"><strong>Metria ostma</strong></a>
-                                                </h5>
-                                                <ul class="pull-left list-inline ratings rating-list pb-20">
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li><i class="rated fa fa-star"></i></li>
-                                                    <li class="reviews text-theme"><span>10</span>Review(s)</li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat pariatur</p>
-                                                <ul class="pricing pricing-list">
-                                                    <li class="text-right p-price text-center">$160</li>
-                                                    <li class="text-right c-price text-defualt text-center">$140</li>
-                                                </ul>
-                                                <div class="clear"></div>
-                                                <ul class="quick-veiw-list">
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -392,62 +237,62 @@
                             <div class="section-title text-center mb-35">
                                 <h2 class="text-uppercase"><strong>我们的其它品牌</strong></h2>
                                 <p class="text-defualt">BRAND</p>
-                                <img alt="" src="images/section-border.png">
+                                <img alt="" src="${base}/images/section-border.png">
                             </div>
                             <div class="brand-carousel">
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo1.png" alt="">
+                                            <img src="${base}/images/new/logo1.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo2.png" alt="">
+                                            <img src="${base}/images/new/logo2.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo3.png" alt="">
+                                            <img src="${base}/images/new/logo3.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo4.png" alt="">
+                                            <img src="${base}/images/new/logo4.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo5.png" alt="">
+                                            <img src="${base}/images/new/logo5.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo1.png" alt="">
+                                            <img src="${base}/images/new/logo1.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo2.png" alt="">
+                                            <img src="${base}/images/new/logo2.png" alt="">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="single-brand text-center">
                                         <a href="#">
-                                            <img src="images/new/logo3.png" alt="">
+                                            <img src="${base}/images/new/logo3.png" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -489,7 +334,7 @@
                                 <h5 class="footer-title text-white">联系方式</h5>
                                 <ul class="footer-contact">
                                     <li class="contact-icon">
-                                        <img alt="" src="images/footer/icon/1.png">
+                                        <img alt="" src="${base}/images/footer/icon/1.png">
                                     </li>
                                     <li class="footer-text text-ash">
                                         <p>成都市郫都区</p>
@@ -498,7 +343,7 @@
                                 </ul>
                                 <ul class="footer-contact">
                                     <li class="contact-icon">
-                                        <img alt="" src="images/footer/icon/2.png">
+                                        <img alt="" src="${base}/images/footer/icon/2.png">
                                     </li>
                                     <li class="footer-text text-ash">
                                         <p>Telephone : 13808217512</p>
@@ -507,7 +352,7 @@
                                 </ul>
                                 <ul class="footer-contact">
                                     <li class="contact-icon">
-                                        <img alt="" src="images/footer/icon/3.png">
+                                        <img alt="" src="${base}/images/footer/icon/3.png">
                                     </li>
                                     <li class="footer-text text-ash">
                                         <p>Email : 2208579592@</p>
@@ -534,7 +379,7 @@
                                     <li class="tweet-inner clearfix">
                                         <div class="tweet-img">
                                             <a href="#">
-                                                <img alt="" src="images/footer/tweet/1.jpg">
+                                                <img alt="" src="${base}/images/footer/tweet/1.jpg">
                                             </a>
                                         </div>
                                         <div class="tweet-text">
@@ -545,7 +390,7 @@
                                     <li class="tweet-inner clearfix">
                                         <div class="tweet-img">
                                             <a href="#">
-                                                <img alt="" src="images/footer/tweet/2.jpg">
+                                                <img alt="" src="${base}/images/footer/tweet/2.jpg">
                                             </a>
                                         </div>
                                         <div class="tweet-text">
@@ -558,7 +403,7 @@
                                     <li class="tweet-inner clearfix">
                                         <div class="tweet-img">
                                             <a href="#">
-                                                <img alt="" src="images/footer/tweet/1.jpg">
+                                                <img alt="" src="${base}/images/footer/tweet/1.jpg">
                                             </a>
                                         </div>
                                         <div class="tweet-text">
@@ -592,14 +437,14 @@
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!-- jquery latest version -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="${base}/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- Bootstrap framework js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="${base}/js/bootstrap.min.js"></script>
     <!-- All js plugins included in this file. -->
-    <script src="js/plugins.js"></script>
+    <script src="${base}/js/plugins.js"></script>
     <!-- Main js file that contents all jQuery plugins activation. -->
-    <script src="js/main.js"></script>
-    <script src="layui/layui.js"></script>
+    <script src="${base}/js/main.js"></script>
+    <script src="${base}/layui/layui.js"></script>
 
 </body>
 

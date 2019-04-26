@@ -58,4 +58,14 @@ public class GoodsServiceImpl implements GoodsService {
     public Integer addLike(Integer goods_id) {
         return mapper.updateLike(goods_id);
     }
+
+    @Override
+    public List<Goods> listByCategory(Integer categoryId) {
+        return mapper.selectByCategory(categoryId);
+    }
+
+    @Override
+    public List<Goods> listBySearch(String search) {
+        return mapper.selectByLikeNameOrAnthor(search);
+    }
 }

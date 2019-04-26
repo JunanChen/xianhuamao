@@ -3,9 +3,10 @@ package com.xianhuamao.dto;
 import java.util.HashMap;
 
 /**
+ * 通用消息类型
+ *
  * @author janhs
  * @date 19-3-8 下午8:09
- * 通用消息类型
  */
 public class BaseDto {
 

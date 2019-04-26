@@ -1,0 +1,19 @@
+spring:
+
+  profiles: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xianhuamao?useUnicode=true&characterEncoding=utf8&useAffectedRows=true
+    username: root
+    password: chenjunan
+    type: com.alibaba.druid.pool.DruidDataSource
+  freemarker:
+    request-context-attribute: request
+
+  mail:
+    username: 13699044479@163.com
+    password: chenjunan1998
+    host: smtp.163.com
+    port: 25
+    form: 13699044479@163.com

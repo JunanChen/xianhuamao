@@ -36,6 +36,18 @@ public interface GoodsService {
      */
     Integer addLike(Integer goods_id);
 
+    /**
+     * 通过分类查询
+     * @param categoryId 分类id
+     * @return
+     */
+    List<Goods> listByCategory(Integer categoryId);
 
+    /**
+     * 模糊查询（查询书名和作者）
+     * @param search
+     * @return
+     */
+    List<Goods> listBySearch(String search);
 
 }

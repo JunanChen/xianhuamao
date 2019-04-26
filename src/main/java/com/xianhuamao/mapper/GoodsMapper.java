@@ -1,6 +1,7 @@
 package com.xianhuamao.mapper;
 
 import com.xianhuamao.pojo.Goods;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,4 +43,18 @@ public interface GoodsMapper {
      * @return
      */
     Integer updateLike(Integer goods_id);
+
+    /**
+     * 通过分类查询数据
+     * @param categoryId 分类id
+     * @return
+     */
+    List<Goods> selectByCategory(Integer categoryId);
+
+    /**
+     * 通过书名和作者模糊查询
+     * @param search
+     * @return
+     */
+    List<Goods> selectByLikeNameOrAnthor(@Param("search") String search);
 }
